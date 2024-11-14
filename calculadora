@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calculadora</title>
+    <link rel="stylesheet" href="calc.css">
+</head>
+<body>
+    
+    <div class="calculator">
+        <div class="display" id="display"></div>
+        <div class="buttons">
+            <button class="buttom light gray" onclick="clearDisplay()">C</button>
+            <button class="buttom light gray" onclick="appendOperator('%')">%</button>
+            <button class="buttom light gray" onclick="appendOperator('.')">.</button>
+            <button class="buttom orange" onclick="appendOperator('/')">/</button>
+
+            <button class="buttom dark-gray" onclick="appendNumber('7')">7</button>
+            <button class="buttom dark-gray" onclick="appendNumber('8')">8</button>
+            <button class="buttom dark-gray" onclick="appendNumber('9')">9</button>
+            <button class="buttom orange" onclick="appendOperator('*')">*</button>
+
+            <button class="buttom dark-gray" onclick="appendNumber('4')">4</button>
+            <button class="buttom dark-gray" onclick="appendNumber('5')">5</button>
+            <button class="buttom dark-gray" onclick="appendNumber('6')">6</button>
+            <button class="buttom orange" onclick="appendOperator('-')">-</button>
+
+            <button class="buttom dark-gray" onclick="appendNumber('1')">1</button>
+            <button class="buttom dark-gray" onclick="appendNumber('2')">2</button>
+            <button class="buttom dark-gray" onclick="appendNumber('3')">3</button>
+            
+            <button class="buttom orange" onclick="appendOperator('+')">+</button>
+            
+            
+            <button class="buttom dark-gray" onclick="appendNumber('0')">0</button>
+            <button class="buttom orange" onclick="calculate()">=</button>
+        </div>
+    </div>
+    <script src="code.js"></script>
+
+</body>
+</html>
+  CSS
+body {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    height: 90vh;
+    background-color: blanchedalmond;
+}
+.calculator {
+    width: 360px;
+    background-color: rgb(56, 56, 56);
+    border-radius: 7px;
+    text-align: center;
+    padding: 20px;
+    
+}
+.display {
+    background-color: #cfd2d0;
+    color: #fff;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    min-height: 50px;
+    text-align:right;
+
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    
+    
+   
+} 
+.button {
+    border: none;
+    border-radius: 1px;
+    padding: 30px;
+    font-size: xx-large;
+    cursor: pointer;
+    
+}
+
+.buttom.dark-gray{
+    background-color: #edce5d;
+    
+}
+.buttom.orange{
+    background-color: #908279;
+    
+}
+.buttom.light-gray{
+    background-color: #ab8f0c;
+}
+  JAVASCRIPT
+let display = document.getElementById("display");
+let currentInput = ""
+let currentOperator = ""
+
+function appendNumber(value) {
+    currentInput += value;
+    display.textContent = currentInput;
+}
+function appendOperator(operator){
+    if (currentInput === "" && operator !== ".") return;
+    currentInput += operator;
+    display.textContent = currentInput;
+}
+function calculate(){
+    try {
+        let result = eval(currentInput)
+        if(!Number.isInteger(result)){
+            result = result.toFixed(2)
+        }
+        currentInput = result;
+        display.textContent = currentInput;
+    } catch(error){
+        display.textContent = "Erro";
+        currentInput = "";
+    }
+
+
+}
+function clearDisplay(){
+    currentInput = "";
+    display.textContent = currentInput;
+}
